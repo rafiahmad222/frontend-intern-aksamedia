@@ -258,6 +258,18 @@
             return JSON.parse(localStorage.getItem('user_session'));
         }
 
+        function syncThemeSelectors() {
+            const desktop = document.getElementById('themeSelector');
+            const mobile = document.getElementById('mobileThemeSelector');
+            if (desktop && mobile) {
+                mobile.value = desktop.value;
+                mobile.onchange = (e) => {
+                    desktop.value = e.target.value;
+                    desktop.dispatchEvent(new Event('change'));
+                };
+            }
+        }
+
         function saveUser(user) {
             localStorage.setItem('user_session', JSON.stringify(user));
         }
