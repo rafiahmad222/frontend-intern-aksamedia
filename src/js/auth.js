@@ -91,12 +91,12 @@ if (document.getElementById("userMenuBtn")) {
     }
   };
 
-  //   document.addEventListener("click", function (e) {
-  //     if (!e.target.closest("#userMenuBtn")) {
-  //       const dropdown = document.getElementById("userDropdown");
-  //       if (dropdown) {
-  //         dropdown.classList.add("hidden");
-  //       }
-  //     }
-  //   });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest("#userMenuBtn")) {
+      const dropdown = document.getElementById("userDropdown");
+      if (dropdown) {
+        dropdown.classList.add("hidden");
+      }
+    }
+  });
 }
