@@ -265,6 +265,7 @@
                 };
             }
         }
+
         function getUser() {
             return JSON.parse(localStorage.getItem('user_session'));
         }
@@ -277,19 +278,26 @@
             return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
         }
 
-        const user = getUser();
-        if (!user) window.location.href = 'login.html';
+        function initializePage() {
+            syncThemeSelectors();
 
-        document.getElementById('fullName').value = user.fullName;
-        document.getElementById('email').value = user.email;
-        document.getElementById('username').value = user.username;
-        document.getElementById('userName').textContent = user.fullName;
-        document.getElementById('profileDisplayName').textContent = user.fullName;
-        document.getElementById('profileEmail').textContent = user.email;
+            const user = getUser();
+            if (!user) window.location.href = 'login.html';
 
-        const initials = getInitials(user.fullName);
-        document.getElementById('userInitial').textContent = initials;
-        document.getElementById('profileInitial').textContent = initials;
+            document.getElementById('fullName').value = user.fullName;
+            document.getElementById('email').value = user.email;
+            document.getElementById('username').value = user.username;
+            document.getElementById('userName').textContent = user.fullName;
+            document.getElementById('profileDisplayName').textContent = user.fullName;
+            document.getElementById('profileEmail').textContent = user.email;
+
+            const initials = getInitials(user.fullName);
+            document.getElementById('userInitial').textContent = initials;
+            document.getElementById('profileInitial').textContent = initials;
+        }
+
+        document.addEventListener('DOMContentLoaded', initializePage);
+        window.addEventListener('load', initializePage);
 
         document.getElementById('profileForm').onsubmit = function (e) {
             e.preventDefault();
@@ -302,6 +310,7 @@
             submitBtn.disabled = true;
 
             setTimeout(() => {
+                const user = getUser();
                 user.fullName = document.getElementById('fullName').value;
                 user.email = document.getElementById('email').value;
                 saveUser(user);
